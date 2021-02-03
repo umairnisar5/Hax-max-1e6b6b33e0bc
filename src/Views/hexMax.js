@@ -264,7 +264,7 @@ function Wisedup() {
             </ul>
           </div>
         </nav>
-        <div className="row mb-2 mb-sm-5">
+        <div className="row mb-2 mb-sm-5 wallet_balance_div">
           <div className="col-md-6 text-left">
             <p>
               Wallet:
@@ -278,6 +278,9 @@ function Wisedup() {
             <p>
               Network: <span id="network">Detecting...</span>
             </p>
+          </div>
+          <div className="wallet_button">
+            <button>Connect To Wallet</button>
           </div>
         </div>
         <div className="row accord no-gutters mb-5">

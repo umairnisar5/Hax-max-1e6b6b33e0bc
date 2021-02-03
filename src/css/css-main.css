@@ -25,6 +25,29 @@ body {
   font: 18px NTR;
   color: #fff;
 }
+.wallet_balance_div {
+  display: flex;
+  justify-content: space-between;
+}
+.wallet_button {
+  margin-right: 50px;
+}
+.wallet_button button {
+  padding: 0px 10px;
+  outline: none;
+  outline-style: none;
+  color: yellow;
+  background-color: black;
+  border: 2px solid lightgray;
+}
+.wallet_button button:hover {
+  transform: scale(1.1);
+  background-color: yellow;
+  color: black;
+  cursor: pointer;
+  transition: .2s;
+  border: none;
+}
 #wallet,
 #balance,
 #bandwidth,
@@ -32,6 +55,16 @@ body {
 #network {
   color: #ffff01;
 }
+/* @media screen and (max-width:1000px) {
+  .wallet_button {
+    transform: translate(-100px, 0px);
+  }
+}*/
+@media screen and (max-width:800px) {
+  .wallet_button {
+    margin-left: 30px;
+  }
+} 
 .card {
   background-color: #232027;
   color: #777374;
