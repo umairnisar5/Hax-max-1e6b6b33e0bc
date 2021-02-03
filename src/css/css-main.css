@@ -39,6 +39,7 @@ body {
   color: yellow;
   background-color: black;
   border: 2px solid lightgray;
+  border-radius: 5px;
 }
 .wallet_button button:hover {
   transform: scale(1.1);
