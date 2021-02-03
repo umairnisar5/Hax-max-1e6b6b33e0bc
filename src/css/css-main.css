@@ -45,7 +45,7 @@ body {
   background-color: yellow;
   color: black;
   cursor: pointer;
-  transition: .2s;
+  transition: .4s;
   border: none;
 }
 #wallet,

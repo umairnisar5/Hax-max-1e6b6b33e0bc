@@ -280,7 +280,7 @@ function Wisedup() {
             </p>
           </div>
           <div className="wallet_button">
-            <button>Connect To Wallet</button>
+            <button><span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/220px-MetaMask_Fox.svg.png" width="30" /></span>Connect Wallet</button>
           </div>
         </div>
         <div className="row accord no-gutters mb-5">
