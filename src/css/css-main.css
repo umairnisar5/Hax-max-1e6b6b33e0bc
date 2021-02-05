@@ -56,11 +56,6 @@ body {
 #network {
   color: #ffff01;
 }
-/* @media screen and (max-width:1000px) {
-  .wallet_button {
-    transform: translate(-100px, 0px);
-  }
-}*/
 @media screen and (max-width:800px) {
   .wallet_button {
     margin-left: 30px;
