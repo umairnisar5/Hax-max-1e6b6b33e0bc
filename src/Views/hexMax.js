@@ -15,57 +15,62 @@ import o0vkjR from "../images/7o0vkjR.png";
 import flags from "../images/flags-blank.png";
 import logo from "../images/logo1.jpg";
 
-function Wisedup( {props} ) {
+function Wisedup() {
+
   const [account, setAccount] = useState(null);
-  useEffect(() => {
-    // loadWeb3();
-    // loadBlockchainData();
-  }, []);
-  // eslint-disable-next-line
-  const loadBlockchainData = async () => {
+
+  const getAccounts = async () => {
     const web3 = window.web3;
+    try {
+      let accounts = await web3.eth.getAccounts();
+      console.log("---", accounts);
 
-    const accounts = await web3.eth.getAccounts();
-    setAccount(account && accounts[0]);
-    console.log(accounts[0])
-    // eslint-disable-next-line
-    const networkId = await web3.eth.net.getId();
-  };
-  // eslint-disable-next-line
-  const loadWeb3 = async () => {};
-  // eslint-disable-next-line
-  const connectWithMetaMask = async () => {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-      const web3 = window.web3;
-
-      const accounts = await web3.eth.getAccounts();
-      console.log("account", accounts);
-      setAccount(accounts[0]);
-
-      const networkId = await web3.eth.net.getId();
-      console.log("networkId", networkId);
-      web3.eth.getBalance(accounts[0], (err, balance) => {});
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-      const web3 = window.web3;
-
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
-      web3.eth.getBalance(accounts[0], (err, balance) => {
-        console.log("balance:", balance);
-        console.log(err);
-      });
-      const networkId = await web3.eth.net.getId();
-      console.log("networkId", networkId);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+      return accounts;
+    } catch (error) {
+      console.log("Error while fetching acounts: ", error);
+      return null;
     }
   };
 
+  const loadWeb3 = async () => {
+    let isConnected = false;
+    try {
+      if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+        isConnected = true;
+      } else if (window.web3) {
+        window.web3 = new Web3(window.web3.currentProvider);
+        isConnected = true;
+      } else {
+        isConnected = false;
+
+        // "Metamask is not installed, please install it on your browser to connect.",
+      }
+      if (isConnected === true) {
+        const web3 = window.web3;
+
+        // let contract = new web3.eth.Contract(abi, contractAddress);
+        let accounts = await getAccounts();
+        //set account to state
+        setAccount(accounts[0]);
+
+        let accountDetails = null;
+        window.ethereum.on("accountsChanged", function (accounts) {
+          //set account to state
+          setAccount(accounts[0]);
+
+          localStorage.setItem("load", accounts[0]);
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      //  "Error while connecting metamask",
+    }
+  };
+
+
+ 
   return (
     <div className="App">
       {" "}
@@ -333,17 +338,14 @@ function Wisedup( {props} ) {
             </p>
           </div>
           <div className="wallet_button">
-            <button  onClick={() => props?.loadWeb3()}
-            variant="contained" >
+            <button onClick={loadWeb3}> 
               <span>
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/220px-MetaMask_Fox.svg.png"
                   width="30"
                 />
               </span>
-              {props?.account === null
-              ? "Connect Wallet"
-              : props?.account?.substring(0, 11) + "..."}
+              {account?account:"connect wallet"}
             </button>
           </div>
         </div>
